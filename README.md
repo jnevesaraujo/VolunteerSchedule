@@ -28,6 +28,6 @@ This project is a single-page application (SPA) designed to manage volunteer sig
 
 ## Demo
 
-This project is fully functional as a demo using **local storage**. To run it, simply clone the repository and open the `index.html` file in your web browser.
+This project is fully functional as a demo using **local storage** and it's running here [Volunteer Schedule](https://janica-xi.github.io/VolunteerSchedule/)
 
-**Note:** The original version of this application connects to a **Google Firestore** database for persistent data storage. This GitHub repository is configured to demonstrate the frontend functionality using local storage for a simple and effective demo.
+**Note:** The original version of this application connects to a **Google Firestore** database for persistent data storage. This GitHub repository is configured to demonstrate the frontend functionality using local storage and the first load will generate dummy content for illustration purposes.
