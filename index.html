@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKA Service Schedule</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Volunteer Schedule</h1>
+            <p>Weekly Virtual Event: Chair & Co-Host Needed</p>
+        </div>
+        
+        <div class="main-content row">
+            <div class="booking-form col">
+                <h2>Volunteer Sign-Up</h2>
+                <div id="message"></div>
+                
+                <form id="volunteerForm">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>               
+                    
+                    <div class="form-group">
+                        <label for="date">Select Saturday *</label>
+                        <select id="date" name="date" required>
+                            <option value="">Choose a date...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="position">Preferred Position *</label>
+                        <select id="position" name="position" class="position-select" required>
+                            <option value="">Choose your role...</option>
+                            <option value="chair">Chair</option>
+                            <option value="co-host">Co-Host</option>
+                        </select>
+                    </div>                   
+
+                    <button type="submit" class="submit-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg> Submit</button>
+                </form>
+
+                <div class="download-area my-5 p-4">
+                    <h4>Event Files for Download</h4>
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="file-1" value="file-download-01.txt" data-filename="file-download-01.txt">
+                        <label class="form-check-label mx-2" for="file-1">
+                            Event File Download 01
+                        </label>
+                    </div>
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="file-2" value="file-download-02.txt" data-filename="file-download-02.txt">
+                        <label class="form-check-label mx-2" for="file-2">
+                            Event File Download 02
+                        </label>
+                    </div>
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="file-3" value="file-download-03.txt" data-filename="file-download-03.txt">
+                        <label class="form-check-label mx-2" for="file-3">
+                            Event File Download 03
+                        </label>
+                    </div>
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="file-4" value="file-download-04.txt" data-filename="file-download-04.txt">
+                        <label class="form-check-label mx-2" for="file-4">
+                            Event File Download 04
+                        </label>
+                    </div>
+                    <div class="mt-4">
+                        <button class="submit-btn" type="button" onClick="downloadFiles()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                            </svg> Download</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard col">
+                <h2>Dashboard</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalBookings">0</div>
+                        <div class="stat-label">Total Commitments</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="availableDates">0</div>
+                        <div class="stat-label">Available Dates</div>
+                    </div>
+                </div>
+                
+                <div class="bookings-list">
+                    <h3 style="padding: 1rem; margin: 0; background: #f8f9fa; border-bottom: 1px solid #e9ecef;">Upcoming Events</h3>
+                    <div id="bookingsList">
+                        <div class="booking-item">
+                            <span class="booking-date">Loading commitments...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="top-volunteers">
+                    <h3>Volunteers</h3>
+                    <div id="topVolunteers">
+                        <div class="volunteer-rank">
+                            <span>Loading statistics...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="previousEvents mb-4">
+                    <div class="w-100">
+                        <button class="btn btn-secondary w-100 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#pastEvents" aria-expanded="false" aria-controls="pastEvents">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-fill" viewBox="0 0 16 16">
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5"/>
+                            </svg> Past Events
+                        </button>
+                    </div>
+                    <div class="collapse" id="pastEvents">
+                        <div class="card card-body past-Booking">
+                            <span>Loading past Events...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="db-utilities">
+                    <div class="db-export">
+                        <button type="button" class="btn btn-secondary w-100 py-2" id="exportBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-down" viewBox="0 0 16 16">
+                                <path d="M12.5 9a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7m.354 5.854 1.5-1.5a.5.5 0 0 0-.708-.708l-.646.647V10.5a.5.5 0 0 0-1 0v2.793l-.646-.647a.5.5 0 0 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0"/>
+                                <path d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4"/>
+                            </svg> Export Data</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+    <script type="module" src="js/app.js"></script>
+    <script src="js/download_files.js"></script>
+    <script src="js/dummy_data.js"></script>
+</body>
+</html>
