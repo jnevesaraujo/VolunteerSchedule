@@ -249,7 +249,12 @@ function separateBookingsByDate() {
 function renderBookings(dateBookings, container, isPast = false) {
     container.innerHTML = '';
     
-    const sortedDates = Object.keys(dateBookings).sort();
+    const sortedDates = Object.keys(dateBookings).sort((a, b) => {
+        if (isPast) {
+            return b.localeCompare(a); // Reverse order for past dates
+        }
+        return a.localeCompare(b); // Normal order for future dates
+    });
     
     if (sortedDates.length === 0) {
         const message = isPast ? 'No past Events' : 'No upcoming bookings';
